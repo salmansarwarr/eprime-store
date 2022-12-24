@@ -1,3 +1,3 @@
 # fakeShop
  
- deployed site: https://fakeshop-salman.netlify.app/
+ Deployed site: https://fakeshop-salman.netlify.app/
