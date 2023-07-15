@@ -48,7 +48,7 @@ function Orders() {
 
     return (
         <div className="px-8 flex flex-col mx-auto py-8 pt-48">
-            <h2 className="text-2xl font-bold mb-4 min-w-[100%]">Orders</h2>
+            <h2 className="text-2xl font-bold mb-4 min-w-[100%] text-white">Orders</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {orders.map(
                     ({

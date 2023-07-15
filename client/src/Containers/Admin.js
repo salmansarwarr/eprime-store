@@ -16,10 +16,10 @@ const AdminPage = () => {
 
     return (
         <div className="admin-page pt-48">
-            <h1>Log in as admin</h1>
+            <h1 className="text-white">Log in as admin</h1>
             <form onSubmit={handleFormSubmit}>
                 <div className="form-group">
-                    <label htmlFor="password">Password:</label>
+                    <label htmlFor="password" className="text-white">Password:</label>
                     <input
                         type="password"
                         id="password"

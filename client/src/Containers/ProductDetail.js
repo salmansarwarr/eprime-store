@@ -36,7 +36,7 @@ function ProductDetail() {
 
     async function fetchProductDetail() {
         const response = await axios
-            .get(`https://eprime-store-api.vercel.app/products/${productId}`)
+            .get(`https://eprime-store-api.vercel.app/product/${productId}`)
             .catch((err) => {
                 console.log(err);
             });
