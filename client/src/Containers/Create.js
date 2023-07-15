@@ -12,7 +12,7 @@ const admin = localStorage.getItem("admin");
 const Create = () => {
     const navigate = useNavigate();
 
-    if (!admin) return <div className="pt-48 pl-4">You are not authorized</div>;
+    if (!admin) return <div className="pt-48 pl-4 text-white">You are not authorized</div>;
 
     const dispatch = useDispatch();
     const [title, settitle] = useState("");
@@ -41,7 +41,7 @@ const Create = () => {
     };
 
     return (
-        <div className="admin-page pt-48">
+        <div className="admin-page pt-48 text-white">
             <h1>Add new Product</h1>
             <form onSubmit={handleFormSubmit}>
                 <div className="form-group">
@@ -49,6 +49,7 @@ const Create = () => {
                     <input
                         type="text"
                         id="title"
+                        className="text-black"
                         value={title}
                         onChange={(e) => settitle(e.target.value)}
                         required
@@ -58,6 +59,7 @@ const Create = () => {
                     <label htmlFor="price">Price:</label>
                     <input
                         type="number"
+                        className="text-black"
                         id="price"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
@@ -68,6 +70,7 @@ const Create = () => {
                     <label htmlFor="description">Description:</label>
                     <textarea
                         id="description"
+                        className="text-black"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required
@@ -120,6 +123,7 @@ const Create = () => {
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                         required
+                        className="text-black"
                     >
                         <option value="">Select a category</option>
                         <option value="electronics">Electronics</option>
