@@ -36,7 +36,7 @@ function ProductDetail() {
 
     async function fetchProductDetail() {
         const response = await axios
-            .get(`https://eprime-store-api.vercel.app/product/${productId}`)
+            .get(`https://eprime-store-api.vercel.app/products/${productId}`)
             .catch((err) => {
                 console.log(err);
             });
@@ -81,7 +81,7 @@ function ProductDetail() {
                             </p>
                         </div>
                         <h5 className=" text-white card-subtitle  my-4 whitespace-pre-wrap break-words">
-                            {desc || "sswydvwyvdywvdyuwvdwyyuv"}
+                            {desc}
                         </h5>
                         <div className="category">
                             <p className="text-gray-500 text-2xl lg:text-3xl">
