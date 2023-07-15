@@ -8,7 +8,7 @@ function ProductListing() {
     const dispatch = useDispatch()
 
     async function fetchProducts() {
-        const response = await axios.get('http://localhost:5000/products').catch((err) => {
+        const response = await axios.get('https://eprime-store-api.vercel.app/products').catch((err) => {
             console.log("Err", err);
         })
         dispatch(setProducts(response.data.data))

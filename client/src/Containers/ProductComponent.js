@@ -43,7 +43,7 @@ function ProductComponent() {
     //         onKeyDown={toggleDrawer(anchor, false)}
     //         className="bg-white py-4"
     //     >
-    //         <ul>    
+    //         <ul>
     //             {categories.map((text, index) => (
     //                 <li key={index} className="p-4 shadow">
     //                     <button onClick={() => handleCategorySelect(text)} className="capitalize text-blue-500 hover:text-blue-600">
@@ -78,10 +78,8 @@ function ProductComponent() {
     // };
 
     const filteredProducts = products.filter((product) => {
-        return (
-            product.title.toLowerCase().includes(searchQuery.toLowerCase())
-            //  && (!selectedCategory || product.category === selectedCategory)
-        );
+        return product.title.toLowerCase().includes(searchQuery.toLowerCase());
+        //  && (!selectedCategory || product.category === selectedCategory)
     });
 
     // const categories = ["electronics", "clothing", "books", "accessories"];
@@ -103,12 +101,10 @@ function ProductComponent() {
                             {title}
                         </h5>
                         <h5 className="card-subtitle text-center">
-                            
                             {price} PKR
                         </h5>
                         <h5 className="card-subtitle text-center my-4 whitespace-pre-wrap break-words">
-                            
-                            {desc}  
+                            {desc}
                         </h5>
                         <h6 className="card-subtitle text-center text-muted my-2">
                             {category}
@@ -145,7 +141,6 @@ function ProductComponent() {
     return (
         <>
             <div className="my-4 w-full mt-48 flex flex-col sm:flex-row justify-center">
-                
                 <input
                     type="text"
                     placeholder="Search products..."
@@ -172,7 +167,11 @@ function ProductComponent() {
             </div>
 
             {/* PRODUCT LIST  */}
-            <div className="flex flex-wrap">{renderList}</div>
+            {filteredProducts.length == 0 ? (
+                <div className="text-white text-3xl mt-10 text-center">No Products at the moment! ☹️</div>
+            ) : (
+                <div className="flex flex-wrap">{renderList}</div>
+            )}
             {showDeleteConfirmation && (
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
                     <div className="bg-white p-6 rounded shadow-md">
