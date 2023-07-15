@@ -123,7 +123,7 @@ function CreateOrder() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const order = {
-            productLink: `http://localhost:3000/product/${productId}`,
+            productLink: `https://eprime-store.vercel.app/product/${productId}`,
             customerName,
             customerNumber: phoneNumber,
             address,
