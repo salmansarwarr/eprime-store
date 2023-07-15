@@ -19,7 +19,7 @@ function ProductListing() {
     }, [])
 
     return (
-        <div className='grid bg gap-4 px-4'>
+        <div className='grid gap-4 px-4'>
             <ProductComponent/>
         </div>
     )
