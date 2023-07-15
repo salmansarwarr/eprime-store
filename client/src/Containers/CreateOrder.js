@@ -102,7 +102,7 @@ function CreateOrder() {
 
     async function fetchProductDetail() {
         const response = await axios
-            .get(`https://eprime-store-api.vercel.app/products/${productId}`)
+            .get(`https://eprime-store.vercel.app/products/${productId}`)
             .catch((err) => {
                 console.log(err);
             });
