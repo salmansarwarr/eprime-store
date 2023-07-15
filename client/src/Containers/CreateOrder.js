@@ -102,7 +102,7 @@ function CreateOrder() {
 
     async function fetchProductDetail() {
         const response = await axios
-            .get(`https://eprime-store.vercel.app/product/${productId}`)
+            .get(`https://eprime-store-api.vercel.app/products/${productId}`)
             .catch((err) => {
                 console.log(err);
             });
@@ -123,7 +123,7 @@ function CreateOrder() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const order = {
-            productLink: `https://eprime-store.vercel.app/product/${productId}`,
+            productLink: `https://eprime-store-api.vercel.app/products/${productId}`,
             customerName,
             customerNumber: phoneNumber,
             address,
@@ -141,10 +141,10 @@ function CreateOrder() {
     return (
         <div className="detail">
             {Object.keys(product).length === 0 ? (
-                <div className="mt-48">...loading</div>
+                <div className="mt-48">Loading...</div>
             ) : (
-                <div className="container mx-auto py-8 pt-48 flex flex-col items-center">
-                    <h2 className="text-5xl font-bold mb-6 text-white">
+                <div className="container mx-auto py-8 flex flex-col items-center">
+                    <h2 className="text-5xl font-bold mb-6 text-white mt-48">
                         Create Order
                     </h2>
                     <div className="mb-6">
