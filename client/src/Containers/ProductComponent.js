@@ -166,7 +166,7 @@ function ProductComponent() {
 
             {/* PRODUCT LIST  */}
             {filteredProducts.length == 0 ? (
-                <div className="text-white bg-transparent text-3xl mt-10 text-center">No Products at the moment! ☹️</div>
+                <div className="text-white bg-transparent text-3xl mt-10 text-center">Loading...</div>
             ) : (
                 <div className="flex flex-wrap">{renderList}</div>
             )}
