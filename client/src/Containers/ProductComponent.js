@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { deleteProduct } from "../Redux/Actions/productActions";
-// import Box from "@mui/material/Box";
-// import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import Box from "@mui/material/Box";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 
 const admin = JSON.parse(localStorage.getItem("admin"));
 
@@ -13,45 +13,48 @@ function ProductComponent() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const products = useSelector((state) => state.allproducts.products);
-    // const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState(null);
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
     const [selectedProductId, setSelectedProductId] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
-    // const [left, setLeft] = useState(false);
+    const [left, setLeft] = useState(false);
 
-    // const toggleDrawer = (open) => (event) => {
-    //     if (
-    //         event &&
-    //         event.type === "keydown" &&
-    //         (event.key === "Tab" || event.key === "Shift")
-    //     ) {
-    //         return;
-    //     }
+    const toggleDrawer = (open) => (event) => {
+        if (
+            event &&
+            event.type === "keydown" &&
+            (event.key === "Tab" || event.key === "Shift")
+        ) {
+            return;
+        }
 
-    //     setLeft(open);
-    // };
+        setLeft(open);
+    };
 
-    // const list = (anchor) => (
-    //     <Box
-    //         sx={{
-    //             width: anchor === "top" || anchor === "bottom" ? "auto" : 250,
-    //         }}
-    //         role="presentation"
-    //         onClick={toggleDrawer(anchor, false)}
-    //         onKeyDown={toggleDrawer(anchor, false)}
-    //         className="bg-white py-4"
-    //     >
-    //         <ul>
-    //             {categories.map((text, index) => (
-    //                 <li key={index} className="p-4 shadow">
-    //                     <button onClick={() => handleCategorySelect(text)} className="capitalize text-blue-500 hover:text-blue-600">
-    //                         {text}
-    //                     </button>
-    //                 </li>
-    //             ))}
-    //         </ul>
-    //     </Box>
-    // );
+    const list = (anchor) => (
+        <Box
+            sx={{
+                width: anchor === "top" || anchor === "bottom" ? "auto" : 250,
+            }}
+            role="presentation"
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+            className="bg-white py-4"
+        >
+            <ul>
+                {categories.map((text, index) => (
+                    <li key={index} className="p-4 shadow">
+                        <button
+                            onClick={() => handleCategorySelect(text)}
+                            className="capitalize text-blue-500 hover:text-blue-600"
+                        >
+                            {text}
+                        </button>
+                    </li>
+                ))}
+            </ul>
+        </Box>
+    );
 
     const handleDelete = (productId) => {
         setShowDeleteConfirmation(true);
@@ -71,16 +74,18 @@ function ProductComponent() {
         setSearchQuery(e.target.value);
     };
 
-    // const handleCategorySelect = (category) => {
-    //     setSelectedCategory(category);
-    // };
+    const handleCategorySelect = (category) => {
+        setSelectedCategory(category);
+    };
 
     const filteredProducts = products.filter((product) => {
-        return product.title.toLowerCase().includes(searchQuery.toLowerCase());
-        //  && (!selectedCategory || product.category === selectedCategory)
+        return (
+            product.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+            (!selectedCategory || product.category === selectedCategory)
+        );
     });
 
-    // const categories = ["electronics", "clothing", "books", "accessories"];
+    const categories = ["herbal", "electronics", "accessories"];
 
     const renderList = filteredProducts.map((product) => {
         const { _id, title, images, price, category, desc } = product;
@@ -139,6 +144,7 @@ function ProductComponent() {
     return (
         <>
             <div className="my-4 w-full mt-48 flex flex-col sm:flex-row justify-center">
+                <div className="w-[35%]"></div>
                 <input
                     type="text"
                     placeholder="Search products..."
@@ -146,7 +152,7 @@ function ProductComponent() {
                     value={searchQuery}
                     onChange={handleSearch}
                 />
-                {/* <div className="sm:ml-auto sm:mr-4 md:mr-6">
+                <div className="sm:ml-auto sm:mr-4 md:mr-6">
                     <button
                         onClick={toggleDrawer(true)}
                         className="underline mt-4 text-white"
@@ -161,12 +167,14 @@ function ProductComponent() {
                     >
                         {list("left")}
                     </SwipeableDrawer>
-                </div> */}
+                </div>
             </div>
 
             {/* PRODUCT LIST  */}
             {filteredProducts.length == 0 ? (
-                <div className="text-white bg-transparent text-3xl mt-10 text-center">Loading...</div>
+                <div className="text-white bg-transparent text-3xl mt-10 text-center">
+                    Loading...
+                </div>
             ) : (
                 <div className="flex flex-wrap">{renderList}</div>
             )}

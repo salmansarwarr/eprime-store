@@ -127,8 +127,8 @@ const Create = () => {
                     >
                         <option value="">Select a category</option>
                         <option value="electronics">Electronics</option>
-                        <option value="clothing">Clothing</option>
-                        <option value="books">Books</option>
+                        <option value="herbal">Herbal</option>
+                        <option value="accessories">Accessories</option>
                     </select>
                 </div>
                 <button type="submit">Add Product</button>
