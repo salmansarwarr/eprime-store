@@ -6,30 +6,22 @@ import { setProducts } from "../Redux/Actions/productActions";
 
 function ProductListing() {
     const dispatch = useDispatch();
-    const [cachedData, setCachedData] = useState(null);
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     async function fetchProducts() {
         try {
-            // Check if cached data is available
-            const cachedResponse = localStorage.getItem("cachedProductsData");
-            if (cachedResponse) {
-                const parsedData = JSON.parse(cachedResponse);
-                setCachedData(parsedData);
-            }
-
             // Fetch fresh data from the API
             const response = await axios.get(
                 "https://eprime-store-api.vercel.app/products"
             );
 
-            // Update the cache with fresh data
-            localStorage.setItem(
-                "cachedProductsData",
-                JSON.stringify(response.data.data)
-            );
-
             // Update the Redux store with fresh data
             dispatch(setProducts(response.data.data));
+
+            // Update the component state with fresh data
+            setData(response.data.data);
+            setLoading(false);
         } catch (err) {
             console.error("Error fetching data: ", err);
         }
@@ -41,11 +33,7 @@ function ProductListing() {
 
     return (
         <div className="main grid min-h-screen gap-4 px-4">
-            {cachedData ? (
-                <ProductComponent data={cachedData} />
-            ) : (
-                <p>Loading...</p>
-            )}
+            {loading ? <p>Loading...</p> : <ProductComponent data={data} />}
         </div>
     );
 }
