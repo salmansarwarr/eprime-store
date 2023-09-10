@@ -11,7 +11,7 @@ import CreateOrder from "./Containers/CreateOrder";
 
 function App() {
     return (
-        <div className="App bg min-h-screen">
+        <div className="App min-h-screen">
             <BrowserRouter>
                 <Header />
                 <Routes>
@@ -28,7 +28,10 @@ function App() {
                     <Route path="/admin" element={<AdminPage />} />
                     <Route path="/edit/:productId" element={<Edit />} />
                     <Route path="/orders" element={<Orders />} />
-                    <Route path="/create-order/:productId" element={<CreateOrder />} />
+                    <Route
+                        path="/create-order/:productId"
+                        element={<CreateOrder />}
+                    />
                 </Routes>
             </BrowserRouter>
         </div>

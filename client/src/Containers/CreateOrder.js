@@ -101,13 +101,30 @@ function CreateOrder() {
     };
 
     async function fetchProductDetail() {
-        const response = await axios
-            .get(`https://eprime-store-api.vercel.app/products/${productId}`)
-            .catch((err) => {
-                console.log(err);
-            });
+        // Check if cached product data is available
+        const cachedProduct = localStorage.getItem(
+            `cachedProduct_${productId}`
+        );
+        if (cachedProduct) {
+            const parsedProduct = JSON.parse(cachedProduct);
+            dispatch(selectedProduct(parsedProduct));
+        } else {
+            const response = await axios
+                .get(
+                    `https://eprime-store-api.vercel.app/products/${productId}`
+                )
+                .catch((err) => {
+                    console.log(err);
+                });
 
-        dispatch(selectedProduct(response.data));
+            // Update the cache with fresh data
+            localStorage.setItem(
+                `cachedProduct_${productId}`,
+                JSON.stringify(response.data)
+            );
+
+            dispatch(selectedProduct(response.data));
+        }
     }
 
     useEffect(() => {
@@ -120,6 +137,15 @@ function CreateOrder() {
         };
     }, [productId]);
 
+    useEffect(() => {
+        if (product) {
+            setCustomerName(localStorage.getItem("customerName") || "");
+            setPhoneNumber(localStorage.getItem("phoneNumber") || "");
+            setArea(localStorage.getItem("area") || "");
+            setAddress(localStorage.getItem("address") || "");
+        }
+    }, [product]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const order = {
@@ -131,6 +157,12 @@ function CreateOrder() {
         };
         dispatch(create_order(order));
         setShowPopup(true);
+
+        // Store customer information in localStorage for future orders
+        localStorage.setItem("customerName", customerName);
+        localStorage.setItem("phoneNumber", phoneNumber);
+        localStorage.setItem("area", area);
+        localStorage.setItem("address", address);
     };
 
     const handlePopupClose = () => {

@@ -35,13 +35,30 @@ function ProductDetail() {
     };
 
     async function fetchProductDetail() {
-        const response = await axios
-            .get(`https://eprime-store-api.vercel.app/products/${productId}`)
-            .catch((err) => {
-                console.log(err);
-            });
+        // Check if cached data is available
+        const cachedProduct = localStorage.getItem(
+            `cachedProduct_${productId}`
+        );
+        if (cachedProduct) {
+            const parsedProduct = JSON.parse(cachedProduct);
+            dispatch(selectedProduct(parsedProduct));
+        } else {
+            const response = await axios
+                .get(
+                    `https://eprime-store-api.vercel.app/products/${productId}`
+                )
+                .catch((err) => {
+                    console.log(err);
+                });
 
-        dispatch(selectedProduct(response.data));
+            // Update the cache with fresh data
+            localStorage.setItem(
+                `cachedProduct_${productId}`,
+                JSON.stringify(response.data)
+            );
+
+            dispatch(selectedProduct(response.data));
+        }
     }
 
     useEffect(() => {
@@ -55,7 +72,7 @@ function ProductDetail() {
     }, [productId]);
 
     return (
-        <div className="detail flex flex-col">
+        <div className="detail bg-gray-800 min-h-screen flex flex-col">
             {Object.keys(product).length === 0 ? (
                 <div className="mt-48">...loading</div>
             ) : (

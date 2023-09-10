@@ -11,6 +11,11 @@ body {
     height: 100vh;
 }
 
+.main {
+    background: url("./images/bg.jpeg") repeat;
+    background-size: contain;
+}
+
 .header {
     box-shadow: 2px 0 3px 1px;
 }
@@ -35,7 +40,6 @@ body {
         margin-bottom: 10px;
     }
     h5 {
-        color: black;
         &:hover {
             &:first-child {
                 color: rgb(36, 36, 207);

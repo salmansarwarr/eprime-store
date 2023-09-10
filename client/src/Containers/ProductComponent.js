@@ -91,7 +91,7 @@ function ProductComponent() {
         const { _id, title, images, price, category, desc } = product;
         return (
             <div className=" py-4 px-4 mt-10 w-[250px]" key={_id}>
-                <div className="card bg-[#E6F7E9] shadow rounded">
+                <div className="card bg-gray-900 text-white shadow rounded">
                     <Link to={`/product/${_id}`}>
                         <img
                             className="card-img-top mt-3"
@@ -103,13 +103,11 @@ function ProductComponent() {
                         <h5 className="text-[2rem] text-center my-4">
                             {title}
                         </h5>
-                        <h5 className="card-subtitle text-center">
-                            {price} PKR
-                        </h5>
-                        <h5 className="card-subtitle text-center my-4 whitespace-pre-wrap break-words">
+                        <h5 className="text-white text-center">{price} PKR</h5>
+                        <h5 className="text-gray-200 text-center my-4 whitespace-pre-wrap break-words">
                             {desc}
                         </h5>
-                        <h6 className="card-subtitle text-center text-muted my-2">
+                        <h6 className="text-gray-200 text-center text-muted my-2">
                             {category}
                         </h6>
                     </div>
@@ -148,7 +146,7 @@ function ProductComponent() {
                 <input
                     type="text"
                     placeholder="Search products..."
-                    className="border border-gray-300 rounded px-4 py-2 md:w-[400px]"
+                    className="border h-16 border-gray-300 rounded px-4 py-2 md:w-[400px]"
                     value={searchQuery}
                     onChange={handleSearch}
                 />
@@ -176,7 +174,9 @@ function ProductComponent() {
                     Loading...
                 </div>
             ) : (
-                <div className="flex flex-wrap">{renderList}</div>
+                <div className="flex flex-wrap justify-center sm:justify-start">
+                    {renderList}
+                </div>
             )}
             {showDeleteConfirmation && (
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
