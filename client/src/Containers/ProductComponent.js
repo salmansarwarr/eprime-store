@@ -137,7 +137,8 @@ function ProductComponent() {
     const categories = ["herbal", "electronics", "accessories", "t-shirts"];
 
     const renderList = filteredProducts.map((product) => {
-        const { _id, title, images, price, category, desc } = product;
+        const { _id, title, images, price, category, desc, outOfStock } =
+            product;
         console.log(images);
         return (
             <div className=" py-4 px-4 mt-10 w-[250px]" key={_id}>
@@ -192,10 +193,11 @@ function ProductComponent() {
                         </div>
                     ) : (
                         <button
-                            className="btn bg-green-300"
+                            disabled={outOfStock}
+                            className={`btn ${outOfStock && 'hover:text-white'} bg-green-300`}
                             onClick={() => navigate(`/create-order/${_id}`)}
                         >
-                            Buy Now
+                            {outOfStock ? 'Out of Stock' : 'Buy Now'}
                         </button>
                     )}
                 </div>

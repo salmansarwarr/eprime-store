@@ -15,7 +15,7 @@ const admin = JSON.parse(localStorage.getItem("admin"));
 
 function ProductDetail() {
     const product = useSelector((state) => state.allproducts.product);
-    const { title, price, images, category, desc, _id } = product;
+    const { title, price, images, category, desc, _id, outOfStock } = product;
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
     const { productId } = useParams();
     const dispatch = useDispatch();
@@ -123,12 +123,13 @@ function ProductDetail() {
                             </div>
                         ) : (
                             <button
-                                className="lg:text-3xl bg-green-300 py-2 lg:py-3 px-4 lg:px-6 rounded-lg hover:bg-green-400 transition-all focus:outline-none focus:border-none"
+                                disabled={outOfStock}
+                                className="btn lg:text-3xl bg-green-300 py-2 lg:py-3 px-4 lg:px-6 rounded-lg hover:bg-green-400 transition-all focus:outline-none focus:border-none"
                                 onClick={() =>
                                     navigate(`/create-order/${productId}`)
                                 }
                             >
-                                Buy Now
+                                {outOfStock ? "Out of Stock" : "Buy Now"}
                             </button>
                         )}
                     </div>
