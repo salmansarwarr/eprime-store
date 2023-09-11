@@ -58,3 +58,13 @@ export const updateProduct = (id, product, navigate) => async (dispatch) => {
     }
 };
 
+export const markAsOutOfStock = (id, product, navigate) => async (dispatch) => {
+    try {
+        const { data } = await update(id, product);
+        dispatch({ type: actionTypes.UPDATE, payload: data });
+        navigate("/");
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+

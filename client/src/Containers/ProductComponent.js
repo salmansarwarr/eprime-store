@@ -5,10 +5,12 @@ import { AiOutlineDelete, AiOutlineEdit, AiOutlineStock } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import {
     deleteProduct,
-    updateProduct,
+    markAsOutOfStock,
 } from "../Redux/Actions/productActions";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const admin = JSON.parse(localStorage.getItem("admin"));
 
@@ -82,16 +84,47 @@ function ProductComponent() {
     };
 
     const handleOutOfStock = (productId) => {
-        const {title, price, desc, images, category} = products.filter(p => p._id = productId)[0];
-        const productData = {
-            title,
-            price,
-            desc,
-            images,
-            category,
-            outOfStock: true,
-        };
-        dispatch(updateProduct(productId, productData, navigate));
+        const productToMarkOutOfStock = products.find(
+            (p) => p._id === productId
+        );
+        if (productToMarkOutOfStock) {
+            const { title, price, desc, images, category } =
+                productToMarkOutOfStock;
+            const productData = {
+                title,
+                price,
+                desc,
+                images,
+                category,
+                outOfStock: true,
+            };
+            dispatch(markAsOutOfStock(productId, productData, navigate));
+            toast("Product marked as out of stock");
+        } else {
+            // Handle the case where the product with the specified _id is not found
+            console.error("Product not found");
+        }
+    };
+
+    const handleInStock = async (productId) => {
+        const productToMarkInStock = products.find((p) => p._id === productId);
+        if (productToMarkInStock) {
+            const { title, price, desc, images, category } =
+                productToMarkInStock;
+            const productData = {
+                title,
+                price,
+                desc,
+                images,
+                category,
+                outOfStock: false,
+            };
+            dispatch(markAsOutOfStock(productId, productData, navigate));
+            toast("Product marked as in stock");
+        } else {
+            // Handle the case where the product with the specified _id is not found
+            console.error("Product not found");
+        }
     };
 
     const filteredProducts = products.filter((product) => {
@@ -105,6 +138,7 @@ function ProductComponent() {
 
     const renderList = filteredProducts.map((product) => {
         const { _id, title, images, price, category, desc } = product;
+        console.log(images);
         return (
             <div className=" py-4 px-4 mt-10 w-[250px]" key={_id}>
                 <div className="card bg-gray-900 text-white shadow rounded">
@@ -142,8 +176,16 @@ function ProductComponent() {
                                 <AiOutlineEdit />
                             </button>
                             <button
-                                className="btn px-4 bg-green-500 rounded"
-                                onClick={() => handleOutOfStock(_id)}
+                                className={`btn px-4 ${
+                                    product.outOfStock
+                                        ? "bg-red-800"
+                                        : "bg-green-500"
+                                } rounded`}
+                                onClick={() =>
+                                    product.outOfStock
+                                        ? handleInStock(_id)
+                                        : handleOutOfStock(_id)
+                                }
                             >
                                 <AiOutlineStock />
                             </button>
@@ -226,6 +268,7 @@ function ProductComponent() {
                     </div>
                 </div>
             )}
+            <ToastContainer />
         </>
     );
 }
