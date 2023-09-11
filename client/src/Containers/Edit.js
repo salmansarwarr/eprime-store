@@ -24,7 +24,7 @@ function Edit() {
     const [title, settitle] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
-    const [image, setImage] = useState("");
+    const [images, setImages] = useState();
     const [category, setCategory] = useState("");
 
     async function fetchProductDetail() {
@@ -80,8 +80,9 @@ function Edit() {
             title,
             price,
             desc: description,
-            image,
+            images,
             category,
+            outOfStock: false,
         };
         dispatch(updateProduct(product._id, productData, navigate));
         toast("Product Edited!");
@@ -125,11 +126,43 @@ function Edit() {
                             ></textarea>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="description">Image:</label>
+                            <label htmlFor="description">Image 1:</label>
                             <FileBase
                                 type="file"
                                 multiple={false}
-                                onDone={({ base64 }) => setImage(base64)}
+                                onDone={({ base64 }) => setImages([...images, base64])}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="description">Image 2:</label>
+                            <FileBase
+                                type="file"
+                                multiple={false}
+                                onDone={({ base64 }) => setImages([...images, base64])}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="description">Image 3:</label>
+                            <FileBase
+                                type="file"
+                                multiple={false}
+                                onDone={({ base64 }) => setImages([...images, base64])}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="description">Image 4:</label>
+                            <FileBase
+                                type="file"
+                                multiple={false}
+                                onDone={({ base64 }) => setImages([...images, base64])}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="description">Image 5:</label>
+                            <FileBase
+                                type="file"
+                                multiple={false}
+                                onDone={({ base64 }) => setImages([...images, base64])}
                             />
                         </div>
                         <div className="form-group">

@@ -57,3 +57,4 @@ export const updateProduct = (id, product, navigate) => async (dispatch) => {
         console.log(error.message);
     }
 };
+

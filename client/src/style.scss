@@ -11,8 +11,9 @@ body {
     height: 100vh;
 }
 
-.main {
-    background: url("./images/bg.jpg") repeat;
+.main,
+.admin-page {
+    background: url("./images/bg.JPG") repeat;
     background-size: contain;
 }
 

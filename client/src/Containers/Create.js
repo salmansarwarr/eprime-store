@@ -12,7 +12,10 @@ const admin = localStorage.getItem("admin");
 const Create = () => {
     const navigate = useNavigate();
 
-    if (!admin) return <div className="pt-48 pl-4 text-white">You are not authorized</div>;
+    if (!admin)
+        return (
+            <div className="pt-48 pl-4 text-white">You are not authorized</div>
+        );
 
     const dispatch = useDispatch();
     const [title, settitle] = useState("");
@@ -26,9 +29,10 @@ const Create = () => {
         const productData = {
             title,
             price,
-            description,
+            desc: description,
             images,
             category,
+            outOfStock: false,
         };
         dispatch(createProduct(productData, navigate));
         toast("Product Created!");
@@ -41,11 +45,18 @@ const Create = () => {
     };
 
     return (
-        <div className="admin-page pt-48 text-white">
-            <h1>Add new Product</h1>
+        <div className="admin-page w-full pt-48 text-black">
+            <h1 className="bg-white w-fit p-2 rounded shadow">
+                Add new Product
+            </h1>
             <form onSubmit={handleFormSubmit}>
                 <div className="form-group">
-                    <label htmlFor="title">Name:</label>
+                    <label
+                        htmlFor="title"
+                        className="bg-white w-fit p-2 rounded shadow"
+                    >
+                        Name:
+                    </label>
                     <input
                         type="text"
                         id="title"
@@ -56,7 +67,12 @@ const Create = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="price">Price:</label>
+                    <label
+                        htmlFor="price"
+                        className="bg-white w-fit p-2 rounded shadow"
+                    >
+                        Price:
+                    </label>
                     <input
                         type="number"
                         className="text-black"
@@ -67,7 +83,12 @@ const Create = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="description">Description:</label>
+                    <label
+                        htmlFor="description"
+                        className="bg-white w-fit p-2 rounded shadow"
+                    >
+                        Description:
+                    </label>
                     <textarea
                         id="description"
                         className="text-black"
@@ -77,47 +98,87 @@ const Create = () => {
                     ></textarea>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="description">Image 1:</label>
+                    <label
+                        htmlFor="description"
+                        className="bg-white w-fit p-2 rounded shadow"
+                    >
+                        Image 1:
+                    </label>
                     <FileBase
                         type="file"
                         multiple={false}
-                        onDone={({ base64 }) => setImages(prevImages => [...prevImages, base64])}
+                        onDone={({ base64 }) =>
+                            setImages((prevImages) => [...prevImages, base64])
+                        }
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="description">Image 2:</label>
+                    <label
+                        htmlFor="description"
+                        className="bg-white w-fit p-2 rounded shadow"
+                    >
+                        Image 2:
+                    </label>
                     <FileBase
                         type="file"
                         multiple={false}
-                        onDone={({ base64 }) => setImages(prevImages => [...prevImages, base64])}
+                        onDone={({ base64 }) =>
+                            setImages((prevImages) => [...prevImages, base64])
+                        }
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="description">Image 3:</label>
+                    <label
+                        htmlFor="description"
+                        className="bg-white w-fit p-2 rounded shadow"
+                    >
+                        Image 3:
+                    </label>
                     <FileBase
                         type="file"
                         multiple={false}
-                        onDone={({ base64 }) => setImages(prevImages => [...prevImages, base64])}
+                        onDone={({ base64 }) =>
+                            setImages((prevImages) => [...prevImages, base64])
+                        }
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="description">Image 4:</label>
+                    <label
+                        htmlFor="description"
+                        className="bg-white w-fit p-2 rounded shadow"
+                    >
+                        Image 4:
+                    </label>
                     <FileBase
                         type="file"
                         multiple={false}
-                        onDone={({ base64 }) => setImages(prevImages => [...prevImages, base64])}
+                        onDone={({ base64 }) =>
+                            setImages((prevImages) => [...prevImages, base64])
+                        }
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="description">Image 5:</label>
+                    <label
+                        htmlFor="description"
+                        className="bg-white w-fit p-2 rounded shadow"
+                    >
+                        Image 5:
+                    </label>
                     <FileBase
                         type="file"
                         multiple={false}
-                        onDone={({ base64 }) => setImages(prevImages => [...prevImages, base64])}
+                        onDone={({ base64 }) =>
+                            setImages((prevImages) => [...prevImages, base64])
+                        }
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="title">Category:</label>
+                    <label
+                        htmlFor="title"
+                        className="bg-white w-fit p-2 rounded shadow"
+                    >
+                        Category:
+                    </label>
                     <select
                         id="category"
                         value={category}
@@ -129,6 +190,7 @@ const Create = () => {
                         <option value="electronics">Electronics</option>
                         <option value="herbal">Herbal</option>
                         <option value="accessories">Accessories</option>
+                        <option value="t-shirts">T Shirts</option>
                     </select>
                 </div>
                 <button type="submit">Add Product</button>

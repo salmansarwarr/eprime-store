@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineEdit, AiOutlineStock } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { deleteProduct } from "../Redux/Actions/productActions";
+import {
+    deleteProduct,
+    updateProduct,
+} from "../Redux/Actions/productActions";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 
@@ -78,6 +81,19 @@ function ProductComponent() {
         setSelectedCategory(category);
     };
 
+    const handleOutOfStock = (productId) => {
+        const {title, price, desc, images, category} = products.filter(p => p._id = productId)[0];
+        const productData = {
+            title,
+            price,
+            desc,
+            images,
+            category,
+            outOfStock: true,
+        };
+        dispatch(updateProduct(productId, productData, navigate));
+    };
+
     const filteredProducts = products.filter((product) => {
         return (
             product.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
@@ -85,7 +101,7 @@ function ProductComponent() {
         );
     });
 
-    const categories = ["herbal", "electronics", "accessories"];
+    const categories = ["herbal", "electronics", "accessories", "t-shirts"];
 
     const renderList = filteredProducts.map((product) => {
         const { _id, title, images, price, category, desc } = product;
@@ -124,6 +140,12 @@ function ProductComponent() {
                                 onClick={() => navigate(`/edit/${_id}`)}
                             >
                                 <AiOutlineEdit />
+                            </button>
+                            <button
+                                className="btn px-4 bg-green-500 rounded"
+                                onClick={() => handleOutOfStock(_id)}
+                            >
+                                <AiOutlineStock />
                             </button>
                         </div>
                     ) : (

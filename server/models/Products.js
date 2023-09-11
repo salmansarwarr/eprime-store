@@ -1,13 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const postSchema = mongoose.Schema({
     title: String,
     images: [String],
     desc: String,
     price: Number,
-    category: String
+    category: String,
+    outOfStock: Boolean,
 });
 
-const Product = mongoose.model('Products', postSchema);
+const Product = mongoose.model("Products", postSchema);
 
 export default Product;
