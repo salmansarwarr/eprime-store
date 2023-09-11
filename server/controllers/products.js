@@ -53,13 +53,13 @@ export const deleteProduct = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
     const { id } = req.params;
-    const { title, image, desc, category, outOfStock } = req.body;
+    const { title, images, desc, category, outOfStock } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id))
         return res.status(404).send(`No product with id: ${id}`);
 
     const updatedProduct = {
-        image,
+        images,
         title,
         desc,
         category,
